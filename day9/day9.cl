@@ -14,19 +14,18 @@
           do (return t)
           do (setf (gethash x ht) t))))
 
-(defun inspect-preamble (filename preamble-len)
-  (let ((preamble (get-input filename)))
-    (loop for i from preamble-len below (list-length preamble)
-          with sub-preamble = (subseq preamble (- i preamble-len) i)
-          when (not (find-pair
-                      (subseq preamble (- i preamble-len) i)
-                      (nth i preamble)))
-          do (progn
-               (format t "number ~D violates preamble properties, pos ~D~%" (nth i preamble) i)
-               (return (nth i preamble))))))
+(defun inspect-preamble (preamble len)
+  (loop for i from len below (list-length preamble)
+        with sub-preamble = (subseq preamble (- i len) i)
+        when (not (find-pair
+                    (subseq preamble (- i len) i)
+                    (nth i preamble)))
+        do (progn
+             (format t "number ~D violates preamble properties, pos ~D~%" (nth i preamble) i)
+             (return (nth i preamble)))))
 
-(inspect-preamble "./test_input" 5)
-(inspect-preamble "./input" 25)
+(inspect-preamble (get-input "./test_input") 5)
+(inspect-preamble (get-input "./input") 25)
 
 ;; part 2
 
@@ -41,11 +40,10 @@
                (format t "encryption weakness is ~D~%" (+ min max))
                (return)))))
 
-(defun find-weakness (filename preamble-len)
-  (let* ((preamble (get-input filename))
-         (sum (inspect-preamble filename preamble-len)))
+(defun find-weakness (preamble len)
+  (let ((sum (inspect-preamble preamble len)))
     (loop for pos from 0 below (list-length preamble)
           do (find-seq preamble sum pos))))
 
-(find-weakness "./test_input" 5)
-(find-weakness "./input" 25)
+(find-weakness (get-input "./test_input") 5)
+(find-weakness (get-input "./input") 25)
