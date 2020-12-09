@@ -3,7 +3,7 @@ import scala.collection.mutable.ListBuffer
 import scala.io.Source._
 
 val instructions: List[String] =
-  fromFile("./day8_input")
+  fromFile("./input")
     .getLines
     .toList
 

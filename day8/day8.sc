@@ -2,7 +2,7 @@ import scala.collection.mutable
 import scala.io.Source._
 
 val instructions: List[String] =
-  fromFile("./day8_input")
+  fromFile("./input")
     .getLines
     .toList
 
