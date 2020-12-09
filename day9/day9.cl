@@ -42,8 +42,8 @@
                (return)))))
 
 (defun find-weakness (filename preamble-len)
-  (let ((preamble (get-input filename))
-        (sum (inspect-preamble filename preamble-len)))
+  (let* ((preamble (get-input filename))
+         (sum (inspect-preamble filename preamble-len)))
     (loop for pos from 0 below (list-length preamble)
           do (find-seq preamble sum pos))))
 
