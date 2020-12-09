@@ -38,14 +38,14 @@
         when (<= n sum)
         do (if (= n sum)
              (progn
-                (format t "encryption weakness is ~D~%" (+ min max))
-                (return)))))
+               (format t "encryption weakness is ~D~%" (+ min max))
+               (return)))))
 
 (defun find-weakness (filename preamble-len)
   (let ((preamble (get-input filename))
         (sum (inspect-preamble filename preamble-len)))
     (loop for pos from 0 below (list-length preamble)
-        do (find-seq preamble sum pos))))
+          do (find-seq preamble sum pos))))
 
 (find-weakness "./test_input" 5)
 (find-weakness "./input" 25)
