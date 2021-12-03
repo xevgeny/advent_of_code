@@ -18,7 +18,7 @@ fn most_common_bits(nums: &Vec<u32>) -> u32 {
 fn most_common_bit(nums: &Vec<u32>, pos: usize) -> bool {
     let (mut zeros, mut ones) = (0, 0);
     for num in nums.iter() {
-        if num & (1 << pos) != 0 { ones += 1} else { zeros += 1 }
+        if num & (1 << pos) > 0 { ones += 1} else { zeros += 1 }
     } 
     ones >= zeros
 }
@@ -29,7 +29,7 @@ fn filter_nums(nums: &Vec<u32>, flag: bool) -> u32 {
         let mcb = most_common_bit(&vec, i);
         vec.retain(|x| {
             let bit = x & (1 << i) > 0;
-            if flag { bit == mcb } else { bit != mcb }
+            (bit == mcb) ^ flag
         });
         if vec.len() == 1 { break }
     }
