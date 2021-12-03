@@ -10,17 +10,17 @@ fn most_common_bits(nums: &Vec<u32>) -> u32 {
     }
     let len = nums.len();
     for i in 0..N {
-        if arr[i] > len - arr[i] { mcb |= 1 << i }
+        if arr[i] >= len - arr[i] { mcb |= 1 << i }
     }
     mcb
 }
 
 fn most_common_bit(nums: &Vec<u32>, pos: usize) -> bool {
-    let (mut zeros, mut ones) = (0, 0);
+    let mut n = 0;
     for num in nums.iter() {
-        if num & (1 << pos) > 0 { ones += 1} else { zeros += 1 }
+        if num & (1 << pos) > 0 { n += 1 }
     } 
-    ones >= zeros
+    n >= nums.len() - n
 }
 
 fn filter_nums(nums: &Vec<u32>, flag: bool) -> u32 {
