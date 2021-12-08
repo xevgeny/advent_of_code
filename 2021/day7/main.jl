@@ -1,7 +1,6 @@
 using DelimitedFiles
 using Statistics
 using Printf
-using Optim
 
 N = readdlm("./input", ',', Int)
 
