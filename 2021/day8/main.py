@@ -27,7 +27,7 @@ def sum_all(rows):
         digits[7] = next(x for x in input if len(x) == 3)
         digits[8] = next(x for x in input if len(x) == 7)
         digits[3] = next(x for x in input if len(x) == 5 and digits[1].issubset(x))
-        digits[5] = next(x for x in input if len(x) == 5 and digits[4].difference(set.union(digits[1], digits[7])).issubset(x))
+        digits[5] = next(x for x in input if len(x) == 5 and digits[4].difference(digits[7]).issubset(x))
         digits[2] = next(x for x in input if len(x) == 5 and x != digits[3] and x != digits[5])
         digits[9] = next(x for x in input if len(x) == 6 and x.difference(digits[5]).issubset(digits[4]))
         digits[6] = next(x for x in input if len(x) == 6 and x != digits[9] and len(x.difference(digits[5])) == 1)
