@@ -3,7 +3,7 @@ Advent of Code
 [2020]
 
 day 8:  Scala
-day 9:  Common Lisp
+day 9:  Lisp
 day 24: Scala
 
 [2021]
@@ -17,4 +17,5 @@ day 6:  Ruby
 day 7:  Julia
 day 8:  Python
 day 9:  Java
+day 10: Pascal
 
