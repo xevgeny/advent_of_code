@@ -11,7 +11,6 @@ type
 
 var
   Lines: TStringList;
-  Line: String;
 
 function IllegalCharScore(const c: Char): Integer;
 begin
