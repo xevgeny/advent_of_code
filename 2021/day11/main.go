@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -66,15 +67,14 @@ func (g *Game) NextState() {
 	g.flashes += g.flashesPerStep
 	if g.flashesPerStep == N*N {
 		fmt.Printf("Answer 2: %d\n", g.step)
+		os.Exit(0)
 	}
 }
 
 func (g *Game) MutateState(steps int) {
 	for i := 0; i < steps; i++ {
 		g.NextState()
-		// fmt.Printf("After step %d:\n%s\n", i, g.String())
 	}
-
 }
 
 func (g Game) String() string {
