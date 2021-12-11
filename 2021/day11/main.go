@@ -12,7 +12,18 @@ const N = 10
 
 type Octopus struct {
 	level   int
-	falshed bool
+	flashed bool
+}
+
+func (o *Octopus) NextLevel() {
+	o.level += 1
+}
+
+func (o *Octopus) Reset() {
+	if o.level > 9 {
+		o.level = 0
+	}
+	o.flashed = false
 }
 
 type Field = [N][N]*Octopus
@@ -38,10 +49,10 @@ func (g *Game) flashNeighbours(n, m int) {
 
 func (g *Game) mutateOctopus(n, m int) {
 	octopus := g.field[n][m]
-	octopus.level += 1
-	if !octopus.falshed && octopus.level > 9 {
+	octopus.NextLevel()
+	if !octopus.flashed && octopus.level > 9 {
+		octopus.flashed = true
 		g.flashesPerStep += 1
-		octopus.falshed = true
 		g.flashNeighbours(n, m)
 	}
 }
@@ -54,14 +65,9 @@ func (g *Game) NextState() {
 			g.mutateOctopus(n, m)
 		}
 	}
-	// reset energy level and flashed flag
 	for n := 0; n < N; n++ {
 		for m := 0; m < N; m++ {
-			octopus := g.field[n][m]
-			if octopus.level > 9 {
-				octopus.level = 0
-			}
-			octopus.falshed = false
+			g.field[n][m].Reset()
 		}
 	}
 	g.flashes += g.flashesPerStep
