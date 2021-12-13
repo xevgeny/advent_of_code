@@ -42,4 +42,5 @@ for (x, y) in code:
     arr[y][x] = '#'
 
 print('Answer 2:')
-[print(' '.join(x)) for x in arr]
+for row in arr:
+    print(' '.join(row))
