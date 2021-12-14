@@ -39,10 +39,10 @@ def score(template, rules, steps):
     for pair in pd:
         cd[pair[0]] += pd[pair]
     cd[last[1]] += 1
-    counts = sorted(list(cd.values()))
+    counts = sorted(cd.values())
     return counts[-1] - counts[0]
 
 
 template, rules = read_input('./input')
 print('Answer 1: {}'.format(score(template, rules, 10)))
-print('Answer 1: {}'.format(score(template, rules, 40)))
+print('Answer 2: {}'.format(score(template, rules, 40)))
