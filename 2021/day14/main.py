@@ -1,46 +1,33 @@
-from collections import Counter, defaultdict
+from collections import defaultdict
 
 
 def read_input(input):
     template, rules_input = open(input).read().split('\n\n')
-    rules = []
+    rules = dict()
     for rule in rules_input.split('\n'):
-        a, b = rule.split(' -> ')
-        rules.append((a, b))
+        k, v = rule.split(' -> ')
+        rules[k] = v
     return template, rules
 
 
-def getpairsdict(template):
-    pd = defaultdict(lambda: 0)
-    lst = list(template)
-    z = zip(lst[:-1], lst[1:])
-    for pair in [a+b for a, b in z]:
-        pd[pair] += 1
-    return pd
-
-
 def score(template, rules, steps):
-    pd = getpairsdict(template)
-    last = list(pd.keys())[-1]
+    last = template[-1]
+    pd = defaultdict(int)  # pairs dict
+    for i in range(len(template)-1):
+        pd[template[i]+template[i+1]] += 1
 
     for step in range(steps):
-        tmp = pd.copy()
-        for a, b in rules:
-            for pair in pd:
-                if pair == a:
-                    tmp[pair] -= pd[pair]
-                    tmp[pair[0]+b] += pd[pair]
-                    tmp[b+pair[1]] += pd[pair]
-                    if pair == last:
-                        last = b + pair[1]
+        tmp = defaultdict(int)
+        for pair in pd:
+            tmp[pair[0]+rules[pair]] += pd[pair]
+            tmp[rules[pair]+pair[1]] += pd[pair]
         pd = tmp
 
-    cd = defaultdict(lambda: 0)
+    cd = defaultdict(int)  # chars dict
     for pair in pd:
         cd[pair[0]] += pd[pair]
-    cd[last[1]] += 1
-    counts = sorted(cd.values())
-    return counts[-1] - counts[0]
+    cd[last] += 1
+    return max(cd.values()) - min(cd.values())
 
 
 template, rules = read_input('./input')
