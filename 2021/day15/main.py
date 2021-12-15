@@ -4,10 +4,7 @@ from queue import PriorityQueue
 def readinput(input):
     arr = []
     for line in open(input).read().split('\n'):
-        t = []
-        for c in line:
-            t.append(int(c))
-        arr.append(t)
+        arr.append([int(c) for c in line])
     return arr
 
 
@@ -17,7 +14,6 @@ def lowestrisk(arr):
     q = PriorityQueue()
     q.put((0, 0, 0))
     while not q.empty():
-        # print(q.qsize())
         dist, y, x = q.get()
         newdist = dist + arr[y][x]
         if dists[y][x] is None or newdist < dists[y][x]:
