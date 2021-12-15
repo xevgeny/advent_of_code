@@ -18,11 +18,9 @@ def lowestrisk(arr):
         newdist = dist + arr[y][x]
         if dists[y][x] is None or newdist < dists[y][x]:
             dists[y][x] = newdist  # update min distance to (0,0)
-        else:
-            continue
-        for yy, xx in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
-            if 0 <= y+yy < N and 0 <= x+xx < N and dists[y+yy][x+xx] is None:
-                q.put((dists[y][x], y+yy, x+xx))
+            for yy, xx in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                if 0 <= y+yy < N and 0 <= x+xx < N and dists[y+yy][x+xx] is None:
+                    q.put((dists[y][x], y+yy, x+xx))
     return dists[N-1][N-1]-arr[0][0]
 
 
