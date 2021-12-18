@@ -126,12 +126,31 @@ def magnitude(node):
         return 3*magnitude(node.left) + 2*magnitude(node.right)
 
 
-nodes = [list_to_node(eval(x))
-         for x in open('./input').read().split('\n')]
+def answer1():
+    nodes = [list_to_node(eval(x))
+             for x in open('./input').read().split('\n')]
+    state = nodes[0]
+    for node in nodes[1:]:
+        state = add_nodes(state, node)
+        state.reduce()
+    print('Answer 1:', magnitude(state))
 
-state = nodes[0]
-for node in nodes[1:]:
-    state = add_nodes(state, node)
-    state.reduce()
 
-print('Answer 1:', magnitude(state))
+def answer2():
+    lines = open('./input').read().split('\n')
+    res = 0
+    for i in range(len(lines)):
+        for j in range(len(lines)):
+            if i != j:
+                # TODO: clone nodes
+                nodes = [list_to_node(eval(x)) for x in lines]
+                node = add_nodes(nodes[i], nodes[j])
+                node.reduce()
+                m = magnitude(node)
+                if m > res:
+                    res = m
+    print('Answer 2:', res)
+
+
+answer1()
+answer2()
