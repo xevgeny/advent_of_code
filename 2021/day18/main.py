@@ -71,12 +71,11 @@ class Node:
             node, parent = q.pop()
             if type(node) is int:
                 if node >= 10:
-                    splitted = Node(parent, math.floor(
-                        node/2), math.ceil(node/2))
+                    t = Node(parent, math.floor(node/2), math.ceil(node/2))
                     if parent.left == node:
-                        parent.left = splitted
+                        parent.left = t
                     elif parent.right == node:
-                        parent.right = splitted
+                        parent.right = t
                     return True
             else:
                 q.append((node.right, node))
