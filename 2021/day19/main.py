@@ -51,18 +51,17 @@ def genrotations():
     return rotations
 
 
-def noverlaps(refscanner, scanner, rot, delta):
+def noverlaps(beacons, scanner, rot, delta):
     n = 0
     for p in scanner:
         rotp = rot.dot(p) + delta
-        if (rotp[0], rotp[1], rotp[2]) in refscanner:
+        if (rotp[0], rotp[1], rotp[2]) in beacons:
             n += 1
     return n
 
 
-def mapscanner(refscanner, scanner):
-    res = []
-    for refp in refscanner:
+def mapscanner(beacons, scanner):
+    for refp in beacons:
         for p in scanner:
             for rot in rotations:
                 rotp = rot.dot(p)
@@ -72,35 +71,50 @@ def mapscanner(refscanner, scanner):
                     refp[2]-rotp[2],
                 ])
                 # the desired transformation was found, map all beacons
-                if noverlaps(refscanner, scanner, rot, delta) >= 12:
+                if noverlaps(beacons, scanner, rot, delta) >= 12:
+                    xs = []
                     for pp in scanner:
                         rotpp = rot.dot(pp) + delta
-                        res.append((rotpp[0], rotpp[1], rotpp[2]))
-                    return res
-    return []
+                        xs.append((rotpp[0], rotpp[1], rotpp[2]))
+                    return (xs, delta)
+    return None
 
 
 def mapall():
     beacons = set(scanners[0])
+    pos = [None] * len(scanners)
+    pos[0] = np.array([0, 0, 0])
     mapped = [0]
     while len(mapped) < len(scanners):
         for i in range(len(scanners)):
             if i not in mapped:
                 res = mapscanner(beacons, scanners[i])
-                if len(res) > 0:
-                    print('Found mapping for scanner #{}'.format(i))
+                if res:
+                    xs, delta = res
+                    print('Found mapping for scanner #{} {}'.format(i, delta))
+                    pos[i] = delta
                     mapped.append(i)
-                    beacons |= set(res)
-    return beacons
+                    beacons |= set(xs)
+    return beacons, pos
 
 
 def L1(p, q):
-    # https://en.wikipedia.org/wiki/Taxicab_geometry
     return np.sum(np.abs(p-q))
+
+
+def maxdistance(pos):
+    res = 0
+    for p in pos:
+        for q in pos:
+            n = L1(p, q)
+            if n > res:
+                res = n
+    return res
 
 
 rotations = genrotations()
 scanners = readinput('./input')
+beacons, pos = mapall()
 
-
-print('Answer 1:', mapall())
+print('Answer 1:', len(beacons))
+print('Answer 2:', maxdistance(pos))
