@@ -22,7 +22,6 @@ int playgame1(const int players[2])
 
 struct game_state_t
 {
-
     int player1;
     int player2;
     int score1;
@@ -58,12 +57,7 @@ std::pair<long, long> playgame2(game_state_t &gs, game_cache_t &cache, const std
         int ss[2] = {gs.score1, gs.score2};
         pp[gs.next] = (pp[gs.next] + sum - 1) % 10 + 1;
         ss[gs.next] += pp[gs.next];
-
-        if (ss[gs.next] >= 21)
-        {
-            gs.next == 0 ? wins.first += freq : wins.second += freq;
-        }
-        else
+        if (ss[gs.next] < 21)
         {
             std::pair<long, long> res;
             game_state_t next = {pp[0], pp[1], ss[0], ss[1], gs.next == 0 ? 1 : 0};
@@ -80,6 +74,8 @@ std::pair<long, long> playgame2(game_state_t &gs, game_cache_t &cache, const std
             wins.first += freq * res.first;
             wins.second += freq * res.second;
         }
+        else
+            gs.next == 0 ? wins.first += freq : wins.second += freq;
     }
     return wins;
 }
