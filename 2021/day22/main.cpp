@@ -74,6 +74,21 @@ void readinput(const std::string &fname, const bool filter, std::vector<signed_c
     }
 }
 
+/*
+          +-------+
+          |C      |
+  +-------+---+   |
+  |A      |   |   |
+  |   +---+---+   |
+  |   |   |   |   |
+  +---+---+---+   |
+      |B  |   |   |
+      +---+---+---+
+
+  Total volume of A          : A
+  Total volume of A and B    : A, B, -A∩B
+  Total volume of A, B, and C: A, B, -A∩B, C, -A∩C, -B∩C, A∩B∩C
+*/
 long long totalvol(const std::vector<signed_cuboid_t> &vec)
 {
     std::vector<signed_cuboid_t> res;
@@ -102,7 +117,7 @@ int main()
     signed_cuboid_t c3 = parsecub("off x=9..11,y=9..11,z=9..11");
     signed_cuboid_t c4 = parsecub("on x=10..10,y=10..10,z=10..10");
     std::vector<signed_cuboid_t> test_vec = {c1, c2, c3, c4};
-    assert (totalvol(test_vec) == 39);
+    assert(totalvol(test_vec) == 39);
 
     std::vector<signed_cuboid_t> vec1;
     readinput("./input", true, vec1);
