@@ -50,8 +50,8 @@ signed_cuboid_t parsecub(const std::string &input)
 {
     std::smatch sm;
     std::regex r("-?\\d+");
-    std::string::const_iterator iter = input.cbegin();
     std::vector<int> vec;
+    auto iter = input.cbegin();
     while (std::regex_search(iter, input.cend(), sm, r))
     {
         vec.push_back(std::stoi(sm[0]));
