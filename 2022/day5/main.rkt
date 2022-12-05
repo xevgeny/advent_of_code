@@ -27,12 +27,6 @@
   (let ([top (map (λ (blocks) (first blocks)) (vector->list stack))])
     (apply string-append top)))
 
-(define (parse-line str)
-  (let ([split (string-split str " ")])
-    (values (string->number (list-ref split 1))
-            (string->number (list-ref split 3))
-            (string->number (list-ref split 5)))))
-
 ; move n blocks from src to dst
 (define (move stack n src dest reverse?)
   (let ([top (take (vector-ref stack src) n)]
@@ -42,7 +36,10 @@
 
 (define (run-command stack line reverse?)
   (cond [(string-prefix? line "move")
-         (let-values ([(n src dest) (parse-line line)])
+         (let* ([split (string-split line " ")]
+                [n (string->number (list-ref split 1))]
+                [src (string->number (list-ref split 3))]
+                [dest (string->number (list-ref split 5))])
            (move stack n (- src 1) (- dest 1) reverse?))]))
 
 (define (solve reverse?)
