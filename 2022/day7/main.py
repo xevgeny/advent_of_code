@@ -74,17 +74,17 @@ class Interpreter:
 
     # Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update
     def part2(self):
+        min_size = float("inf")
         free_up = -(70000000 - interpreter.root.total_size() - 30000000)
-        sizes = []
         queue = [self.root]
         while queue:
             node = queue.pop()
             size = node.total_size()
-            if node.dir and size >= free_up:
-                sizes.append(size)
+            if node.dir and size >= free_up and size < min_size:
+                min_size = size
             for child in node.children.values():
                 queue.append(child)
-        return min(sizes)
+        return min_size
 
 
 if __name__ == "__main__":
