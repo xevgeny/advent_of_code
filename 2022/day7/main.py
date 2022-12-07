@@ -7,23 +7,7 @@ class Node:
         self.children: dict[str, Node] = {}
 
     def total_size(self):
-        if self.dir:
-            return sum(child.total_size() for child in self.children.values())
-        else:
-            return self.size
-
-    def __repr__(self):
-        sb = []
-        queue = [(self, 0)]
-        while queue:
-            node, depth = queue.pop()
-            if node.dir:
-                sb.append("  " * depth + f"- dir {node.name}")
-            else:
-                sb.append("  " * depth + f"- {node.name} size={node.size}")
-            for child in node.children.values():
-                queue.append((child, depth + 1))
-        return "\n".join(sb)
+        return sum(child.total_size() for child in self.children.values()) if self.dir else self.size
 
 
 class Interpreter:
@@ -60,33 +44,15 @@ class Interpreter:
                         )
                         self.current.children[name] = child
 
-
-# Find all of the directories with a total size of at most 100000, then calculate the sum of their total sizes
-def part1(root: Node):
-    size = 0
-    queue = [root]
-    while queue:
-        node = queue.pop()
-        if node.dir and node.total_size() <= 100000:
-            size += node.total_size()
-        for child in node.children.values():
-            queue.append(child)
-    return size
-
-
-# Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update
-def part2(root: Node):
-    min_size = float("inf")
-    free_up = -(70000000 - interpreter.root.total_size() - 30000000)
-    queue = [root]
-    while queue:
-        node = queue.pop()
-        size = node.total_size()
-        if node.dir and size >= free_up and size < min_size:
-            min_size = size
-        for child in node.children.values():
-            queue.append(child)
-    return min_size
+    def get_dirs(self):
+        dirs = []
+        q = [interpreter.root]
+        while q:
+            node = q.pop()
+            if node.dir:
+                dirs.append(node)
+                q.extend(node.children.values())
+        return dirs
 
 
 if __name__ == "__main__":
@@ -100,5 +66,11 @@ if __name__ == "__main__":
         for cmd in commands:
             interpreter.run(cmd)
 
-        print(f"Part 1: {part1(interpreter.root)}")
-        print(f"Part 2: {part2(interpreter.root)}")
+        # Find all of the directories with a total size of at most 100000, then calculate the sum of their total sizes
+        answer1 = sum([dir.total_size() for dir in interpreter.get_dirs() if dir.total_size() <= 100000])
+        # Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update
+        free_up = -(70000000 - 30000000 - interpreter.root.total_size())
+        answer2 = min([dir.total_size() for dir in interpreter.get_dirs() if dir.total_size() >= free_up])
+
+        print(f"Part 1: {answer1}")
+        print(f"Part 2: {answer2}")
