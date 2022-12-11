@@ -26,7 +26,7 @@ class Program:
                     self.check()
                     if self.cycle == 240:
                         break
-                    self.x += int(int(x))
+                    self.x += int(x)
                     self.addx.append(int(x))
                 case ["noop"]:
                     self.cycle += 1
