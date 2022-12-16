@@ -7,7 +7,7 @@ def best_flow1(G, F, V):
     for t in range(30):
         next_states = set()
         print(f"searching at t={t}, nstates={len(states)}")
-        for total_flow, valve, open_valves in states:
+        for total_flow, valve, open_valves in sorted(states, reverse=True)[:100000]:
             total_flow += sum([F[ov] for ov in open_valves])
             if F[valve] > 0 and valve not in open_valves:
                 next_states.add((total_flow, valve, open_valves.union(V([valve]))))
@@ -25,7 +25,7 @@ def best_flow2(G, F, V):
     for t in range(26):
         next_states = set()
         print(f"searching at t={t}, nstates={len(states)}")
-        for total_flow, valves, open_valves in states:
+        for total_flow, valves, open_valves in sorted(states, reverse=True)[:100000]:
             total_flow += sum([F[ov] for ov in open_valves])
             vs = valves.members()
             v1, v2 = (vs[0], vs[1]) if len(vs) == 2 else (vs[0], vs[0])
