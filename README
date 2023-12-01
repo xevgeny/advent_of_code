@@ -1,23 +1,41 @@
 Advent of Code
 
-[2020]
+[2023]
 
-day 1:  Python
-day 8:  Scala
-day 9:  Lisp
-day 24: Scala
+day  1: Elixir
+
+[2022]
+
+day  1: Haskell
+day  2: Haskell
+day  3: Rust
+day  4: Rust
+day  5: Racket
+day  6: Racket
+day  7: Python
+day  8: Python
+day  9: Python
+day 10: Python
+day 11: Python
+day 12: Python
+day 13: Python
+day 14: Python
+day 15: Python
+day 16: Python
+day 17: Python
+day 18: Python
 
 [2021]
 
-day 1:  Scala
-day 2:  Rust
-day 3:  Rust
-day 4:  Rust
-day 5:  Swift
-day 6:  Ruby
-day 7:  Julia
-day 8:  Python
-day 9:  Java
+day  1: Scala
+day  2: Rust
+day  3: Rust
+day  4: Rust
+day  5: Swift
+day  6: Ruby
+day  7: Julia
+day  8: Python
+day  9: Java
 day 10: Pascal
 day 11: Go
 day 12: Python
@@ -33,24 +51,9 @@ day 21: C++
 day 22: C++
 day 24: Scala
 
-[2022]
+[2020]
 
-day 1:  Haskell
-day 2:  Haskell
-day 3:  Rust
-day 4:  Rust
-day 5:  Racket
-day 6:  Racket
-day 7:  Python
-day 8:  Python
-day 9:  Python
-day 10: Python
-day 11: Python
-day 12: Python
-day 13: Python
-day 14: Python
-day 15: Python
-day 16: Python
-day 17: Python
-day 18: Python
-
+day  1: Python
+day  8: Scala
+day  9  Lisp
+day 24: Scala
