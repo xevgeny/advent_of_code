@@ -5,10 +5,10 @@ def find(row, fwd):
         for i in range(len(q[-1]) - 1):
             xs.append(q[-1][i + 1] - q[-1][i])
         q.append(xs)
-    next = 0
+    res = 0
     for xs in q[::-1]:
-        next = next + xs[-1] if fwd else xs[0] - next
-    return next
+        res = res + xs[-1] if fwd else xs[0] - res
+    return res
 
 
 with open("input", "r") as f:
