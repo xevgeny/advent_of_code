@@ -4,7 +4,7 @@ import scala.collection.mutable._
 
 type Pos = (Int, Int)
 
-val connections: Map[Char, List[(Int, Int)]] = Map(
+val connections = Map(
   'S' -> ((-1, 0) :: (0, 1) :: (1, 0) :: (0, -1) :: Nil),
   '|' -> ((-1, 0) :: (1, 0) :: Nil),
   '-' -> ((0, -1) :: (0, 1) :: Nil),
