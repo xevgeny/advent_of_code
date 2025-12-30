@@ -44,10 +44,8 @@ pub fn main() !void {
     var lines = std.mem.splitScalar(u8, text, ',');
     while (lines.next()) |line| {
         var parts = std.mem.splitScalar(u8, line, '-');
-        const s0 = parts.next().?;
-        const s1 = parts.next().?;
-        const min = try std.fmt.parseInt(u64, s0, 10);
-        const max = try std.fmt.parseInt(u64, s1, 10);
+        const min = try std.fmt.parseInt(u64, parts.next().?, 10);
+        const max = try std.fmt.parseInt(u64, parts.next().?, 10);
 
         var i = min;
         while (i <= max) : (i += 1) {
